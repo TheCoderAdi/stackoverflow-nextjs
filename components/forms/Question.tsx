@@ -15,14 +15,16 @@ import {
 import { Input } from "@/components/ui/input";
 import { questionSchema } from "@/lib/validations";
 import { z } from "zod";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
 
+const type: any = "create";
+
 const Question = () => {
   const editorRef = useRef(null);
-
+  const [isSubmiting, setIsSubmiting] = useState(false);
   const form = useForm<z.infer<typeof questionSchema>>({
     resolver: zodResolver(questionSchema),
     defaultValues: {
@@ -32,7 +34,13 @@ const Question = () => {
     },
   });
   function onSubmit(values: z.infer<typeof questionSchema>) {
-    console.log(values);
+    setIsSubmiting(true);
+    try {
+      // TODO: Make an async call to your API
+    } catch (error) {
+    } finally {
+      setIsSubmiting(false);
+    }
   }
   const handleInputKeyDown = (
     e: React.KeyboardEvent<HTMLInputElement>,
@@ -193,7 +201,17 @@ const Question = () => {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button
+          type="submit"
+          disabled={isSubmiting}
+          className="primary-gradient w-fit !text-light-900"
+        >
+          {isSubmiting ? (
+            <>{type === "edit" ? "Editing..." : "Posting..."}</>
+          ) : (
+            <>{type === "edit" ? "Edit Question" : "Ask a Question"}</>
+          )}
+        </Button>
       </form>
     </Form>
   );
