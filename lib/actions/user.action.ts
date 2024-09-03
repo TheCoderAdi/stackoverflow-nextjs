@@ -4,6 +4,7 @@ import console from "console";
 import {
   CreateUserParams,
   DeleteUserParams,
+  GetAllUsersParams,
   UpdateUserParams,
 } from "./shared.types.t";
 import { revalidatePath } from "next/cache";
@@ -75,6 +76,21 @@ export async function deleteUser(params: DeleteUserParams) {
     const deletedUser = User.findByIdAndDelete(user._id);
 
     return deletedUser;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function getAllUsers(params: GetAllUsersParams) {
+  try {
+    conntectToDataBase();
+
+    // const { page = 1, pageSize = 20, filter, searchQuery } = params;
+
+    const users = await User.find({}).sort({ createdAt: -1 });
+
+    return { users };
   } catch (error) {
     console.log(error);
     throw error;
