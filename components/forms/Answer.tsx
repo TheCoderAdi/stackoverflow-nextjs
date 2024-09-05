@@ -9,8 +9,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Editor } from "@tinymce/tinymce-react";
 import { useTheme } from "@/context/ThemeProvider";
 import { Button } from "../ui/button";
+import { createAnswer } from "@/lib/actions/answer.action";
+import { usePathname } from "next/navigation";
 
-const Answer = () => {
+interface Props {
+  question: string;
+  questionId: string;
+  author: string;
+}
+const Answer = ({ question, questionId, author }: Props) => {
+  const pathname = usePathname();
   const editorRef = useRef(null);
   const [isSubmiting, setIsSubmiting] = useState(false);
   const { mode } = useTheme();
@@ -21,7 +29,27 @@ const Answer = () => {
     },
   });
 
-  const handleCreateAnswer = async () => {};
+  const handleCreateAnswer = async (values: z.infer<typeof answerSchema>) => {
+    setIsSubmiting(true);
+    try {
+      await createAnswer({
+        content: values.answer,
+        author: JSON.parse(author),
+        question: JSON.parse(questionId),
+        path: pathname,
+      });
+
+      form.reset();
+      if (editorRef?.current) {
+        const editor = editorRef.current as any;
+        editor.setContent("");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsSubmiting(false);
+    }
+  };
 
   return (
     <div>
