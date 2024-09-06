@@ -1,4 +1,5 @@
 "use client";
+import { downVoteAnswer, upVoteAnswer } from "@/lib/actions/answer.action";
 import {
   downVoteQuestion,
   upVoteQuestion,
@@ -46,13 +47,13 @@ const Votes = ({
           path: pathname,
         });
       } else if (type === "Answer") {
-        // // await upVoteAnswer({
-        // //   questionId: JSON.parse(itemId),
-        // //   userId: JSON.parse(userId),
-        // //   hasupVoted: hasUpvoted,
-        // //   hasdownVoted: hasDownvoted,
-        // //   path: pathname,
-        // });
+        await upVoteAnswer({
+          answerId: JSON.parse(itemId),
+          userId: JSON.parse(userId),
+          hasupVoted: hasUpvoted,
+          hasdownVoted: hasDownvoted,
+          path: pathname,
+        });
       }
     }
     if (action === "downvote") {
@@ -65,13 +66,13 @@ const Votes = ({
           path: pathname,
         });
       } else if (type === "Answer") {
-        // // await downVoteAnswer({
-        // //   questionId: JSON.parse(itemId),
-        // //   userId: JSON.parse(userId),
-        // //   hasupVoted: hasUpvoted,
-        // //   hasdownVoted: hasDownvoted,
-        // //   path: pathname,
-        // });
+        await downVoteAnswer({
+          answerId: JSON.parse(itemId),
+          userId: JSON.parse(userId),
+          hasupVoted: hasUpvoted,
+          hasdownVoted: hasDownvoted,
+          path: pathname,
+        });
       }
     }
   };
