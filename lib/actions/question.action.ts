@@ -1,7 +1,7 @@
 "use server";
 
 import Question from "@/database/question.model";
-import { conntectToDataBase } from "../mongoose";
+import { connectToDataBase } from "../mongoose";
 import Tag from "@/database/tag.model";
 import User from "@/database/user.model";
 import {
@@ -15,7 +15,7 @@ import console from "console";
 
 export async function getQuestions(params: GetQuestionsParams) {
   try {
-    conntectToDataBase();
+    connectToDataBase();
 
     const questions = await Question.find({})
       .populate({ path: "tags", model: Tag })
@@ -30,7 +30,7 @@ export async function getQuestions(params: GetQuestionsParams) {
 }
 export async function createQuestion(params: CreateQuestionParams) {
   try {
-    conntectToDataBase();
+    connectToDataBase();
 
     const { title, content, tags, author, path } = params;
 
@@ -72,7 +72,7 @@ export async function createQuestion(params: CreateQuestionParams) {
 
 export async function getQuestionById(params: GetQuestionByIdParams) {
   try {
-    conntectToDataBase();
+    connectToDataBase();
 
     const { questionId } = params;
 
@@ -93,7 +93,7 @@ export async function getQuestionById(params: GetQuestionByIdParams) {
 
 export async function upVoteQuestion(params: QuestionVoteParams) {
   try {
-    conntectToDataBase();
+    connectToDataBase();
 
     const { questionId, userId, hasupVoted, hasdownVoted, path } = params;
 
@@ -127,7 +127,7 @@ export async function upVoteQuestion(params: QuestionVoteParams) {
 
 export async function downVoteQuestion(params: QuestionVoteParams) {
   try {
-    conntectToDataBase();
+    connectToDataBase();
 
     const { questionId, userId, hasupVoted, hasdownVoted, path } = params;
 

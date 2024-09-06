@@ -1,5 +1,5 @@
 import User from "@/database/user.model";
-import { conntectToDataBase } from "../mongoose";
+import { connectToDataBase } from "../mongoose";
 import console from "console";
 import {
   CreateUserParams,
@@ -12,7 +12,7 @@ import Question from "@/database/question.model";
 
 export async function getUserById(params: any) {
   try {
-    conntectToDataBase();
+    connectToDataBase();
 
     const { userId } = params;
 
@@ -27,7 +27,7 @@ export async function getUserById(params: any) {
 
 export async function createUser(userData: CreateUserParams) {
   try {
-    conntectToDataBase();
+    connectToDataBase();
 
     const newUser = await User.create(userData);
 
@@ -40,7 +40,7 @@ export async function createUser(userData: CreateUserParams) {
 
 export async function updateUser(params: UpdateUserParams) {
   try {
-    conntectToDataBase();
+    connectToDataBase();
 
     const { clerkId, updateData, path } = params;
 
@@ -57,7 +57,7 @@ export async function updateUser(params: UpdateUserParams) {
 
 export async function deleteUser(params: DeleteUserParams) {
   try {
-    conntectToDataBase();
+    connectToDataBase();
 
     const { clerkId } = params;
 
@@ -84,7 +84,7 @@ export async function deleteUser(params: DeleteUserParams) {
 
 export async function getAllUsers(params: GetAllUsersParams) {
   try {
-    conntectToDataBase();
+    connectToDataBase();
 
     // const { page = 1, pageSize = 20, filter, searchQuery } = params;
 

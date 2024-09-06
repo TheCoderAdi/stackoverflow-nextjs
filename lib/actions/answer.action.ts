@@ -1,14 +1,14 @@
 "use server";
 
 import Answer from "@/database/answer.model";
-import { conntectToDataBase } from "../mongoose";
+import { connectToDataBase } from "../mongoose";
 import { CreateAnswerParams, GetAnswersParams } from "./shared.types.t";
 import Question from "@/database/question.model";
 import { revalidatePath } from "next/cache";
 
 export async function createAnswer(params: CreateAnswerParams) {
   try {
-    conntectToDataBase();
+    connectToDataBase();
 
     const { author, content, path, question } = params;
     const newAnswer = await Answer.create({
@@ -30,7 +30,7 @@ export async function createAnswer(params: CreateAnswerParams) {
 
 export async function getAnswers(params: GetAnswersParams) {
   try {
-    conntectToDataBase();
+    connectToDataBase();
 
     const { questionId } = params;
 
