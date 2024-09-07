@@ -53,7 +53,7 @@ const page = async ({ params, searchParams }: Props) => {
               hasUpvoted={result.upvotes.includes(mongoUser._id)}
               downvotes={result.downvotes.length}
               hasDownvoted={result.downvotes.includes(mongoUser._id)}
-              hasSaved={mongoUser?.saved.includes(mongoUser._id)}
+              hasSaved={mongoUser?.saved.includes(result._id)}
             />
           </div>
         </div>
