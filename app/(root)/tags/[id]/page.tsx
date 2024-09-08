@@ -6,17 +6,9 @@ import { QuestionFilters } from "@/constants/filters";
 import { getQuestionsByTagId } from "@/lib/actions/tag.action";
 import React from "react";
 import { QuestionCardProps } from "../../collection/page";
+import { URLProps } from "@/types";
 
-interface PageProps {
-  params: {
-    id: string;
-  };
-  searchParams: {
-    q: string;
-  };
-}
-
-const Page = async ({ params, searchParams }: PageProps) => {
+const Page = async ({ params, searchParams }: URLProps) => {
   const result = await getQuestionsByTagId({
     tagId: params.id,
     page: 1,
