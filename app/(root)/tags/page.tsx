@@ -10,7 +10,7 @@ const Page = async () => {
   const results = await getAllTags({});
   return (
     <>
-      <h1 className="h1-bold text-dark100_light900">All Users</h1>
+      <h1 className="h1-bold text-dark100_light900">All Tags</h1>
 
       <div className="max:sm:flex-col mt-11 flex justify-between gap-5 sm:items-center">
         <LocalSearchBar
@@ -41,7 +41,7 @@ const Page = async () => {
                 </div>
                 <p className="small-medium text-dark400_light500 mt-3.5">
                   <span className="body-semibold primary-text-gradient mr-2.5">
-                    {tag.questions.length}
+                    {tag.questions.length}+
                   </span>
                   Questions
                 </p>

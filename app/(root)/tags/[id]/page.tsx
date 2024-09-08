@@ -3,40 +3,28 @@ import Filters from "@/components/shared/Filter";
 import NoResult from "@/components/shared/NoResult";
 import LocalSearchBar from "@/components/shared/search/LocalSearchBar";
 import { QuestionFilters } from "@/constants/filters";
-import { getSavedQUestion } from "@/lib/actions/question.action";
-import { auth } from "@clerk/nextjs/server";
+import { getQuestionsByTagId } from "@/lib/actions/tag.action";
 import React from "react";
+import { QuestionCardProps } from "../../collection/page";
 
-export interface QuestionCardProps {
-  _id: string;
-  title: string;
-  tags: {
-    _id: string;
-    name: string;
-  }[];
-  author: {
-    _id: string;
-    name: string;
-    picture: string;
+interface PageProps {
+  params: {
+    id: string;
   };
-  upvotes: string[];
-  views: number;
-  answers: Array<object>;
-  createdAt: Date;
+  searchParams: {
+    q: string;
+  };
 }
 
-const Home = async () => {
-  const { userId: clerkId } = auth();
-
-  if (!clerkId) return null;
-
-  const result = await getSavedQUestion({
-    clerkId,
+const Page = async ({ params, searchParams }: PageProps) => {
+  const result = await getQuestionsByTagId({
+    tagId: params.id,
+    page: 1,
+    searchQuery: searchParams.q,
   });
-
   return (
     <>
-      <h1 className="h1-bold text-dark100_light900">Saved Questions</h1>
+      <h1 className="h1-bold text-dark100_light900">{result.tagTitle}</h1>
       <div className="max:sm:flex-col mt-11 flex justify-between gap-5 sm:items-center">
         <LocalSearchBar
           iconPostion="left"
@@ -81,4 +69,4 @@ const Home = async () => {
   );
 };
 
-export default Home;
+export default Page;
