@@ -197,7 +197,7 @@ export async function getUserAnswers(params: GetUserStatsParams) {
     const userAnswers = await Answer.find({ author: userId })
       .sort({ upvotes: -1 })
       .populate("question", "_id title")
-      .populate("author", "_id clerkID name picture");
+      .populate("author", "_id clerkId name picture");
 
     return {
       totalAnswers,
