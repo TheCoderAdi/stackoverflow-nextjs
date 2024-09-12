@@ -16,6 +16,7 @@ export interface QuestionCardProps {
   }[];
   author: {
     _id: string;
+    clerkId: string;
     name: string;
     picture: string;
   };
