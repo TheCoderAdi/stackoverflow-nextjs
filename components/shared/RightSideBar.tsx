@@ -2,69 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import RenderTag from "./RenderTag";
+import { getHotQuestions, getPopularTags } from "@/lib/actions/question.action";
 
-const hotQuestions = [
-  { _id: "1", title: "How do i express as a custom server in NextJS?" },
-  { _id: "2", title: "How do i express as a custom server in NextJS?" },
-  { _id: "3", title: "How do i express as a custom server in NextJS?" },
-  { _id: "4", title: "How do i express as a custom server in NextJS?" },
-  { _id: "5", title: "How do i express as a custom server in NextJS?" },
-];
+const RightSideBar = async () => {
+  const hotQuestions = await getHotQuestions();
+  const popularTags = await getPopularTags();
 
-const popularTags = [
-  {
-    _id: "1",
-    name: "javascript",
-    totalQuestions: 1000,
-  },
-  {
-    _id: "2",
-    name: "react",
-    totalQuestions: 800,
-  },
-  {
-    _id: "3",
-    name: "nodejs",
-    totalQuestions: 700,
-  },
-  {
-    _id: "4",
-    name: "express",
-    totalQuestions: 600,
-  },
-  {
-    _id: "5",
-    name: "mongodb",
-    totalQuestions: 500,
-  },
-  {
-    _id: "6",
-    name: "nextjs",
-    totalQuestions: 400,
-  },
-  {
-    _id: "7",
-    name: "typescript",
-    totalQuestions: 300,
-  },
-  {
-    _id: "8",
-    name: "css",
-    totalQuestions: 200,
-  },
-  {
-    _id: "9",
-    name: "html",
-    totalQuestions: 100,
-  },
-  {
-    _id: "10",
-    name: "python",
-    totalQuestions: 5,
-  },
-];
-
-const RightSideBar = () => {
   return (
     <section className="background-light900_dark200 light-border custom-scrollbar sticky right-0 top-0 h-screen w-[350px]  flex-col overflow-y-auto border-l p-6 pt-36 shadow-light-300 dark:shadow-none max-lg:hidden">
       <div>
@@ -98,7 +41,7 @@ const RightSideBar = () => {
               key={tag._id}
               _id={tag._id}
               name={tag.name}
-              totalQuestions={tag.totalQuestions}
+              totalQuestions={tag.numberOfQuestions}
               showCount
             />
           ))}
