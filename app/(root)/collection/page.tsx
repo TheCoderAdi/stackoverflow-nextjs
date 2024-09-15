@@ -4,6 +4,7 @@ import NoResult from "@/components/shared/NoResult";
 import LocalSearchBar from "@/components/shared/search/LocalSearchBar";
 import { QuestionFilters } from "@/constants/filters";
 import { getSavedQUestion } from "@/lib/actions/question.action";
+import { SearchParamsProps } from "@/types";
 import { auth } from "@clerk/nextjs/server";
 import React from "react";
 
@@ -26,13 +27,14 @@ export interface QuestionCardProps {
   createdAt: Date;
 }
 
-const Home = async () => {
+const Home = async ({ searchParams }: SearchParamsProps) => {
   const { userId: clerkId } = auth();
 
   if (!clerkId) return null;
 
   const result = await getSavedQUestion({
     clerkId,
+    searchQuery: searchParams.q,
   });
 
   return (
