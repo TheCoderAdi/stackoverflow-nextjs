@@ -3,7 +3,7 @@ import Filters from "@/components/shared/Filter";
 import NoResult from "@/components/shared/NoResult";
 import LocalSearchBar from "@/components/shared/search/LocalSearchBar";
 import { QuestionFilters } from "@/constants/filters";
-import { getSavedQUestion } from "@/lib/actions/question.action";
+import { getSavedQuestion } from "@/lib/actions/question.action";
 import { SearchParamsProps } from "@/types";
 import { auth } from "@clerk/nextjs/server";
 import React from "react";
@@ -32,9 +32,10 @@ const Home = async ({ searchParams }: SearchParamsProps) => {
 
   if (!clerkId) return null;
 
-  const result = await getSavedQUestion({
+  const result = await getSavedQuestion({
     clerkId,
     searchQuery: searchParams.q,
+    filter: searchParams.filter,
   });
 
   return (
