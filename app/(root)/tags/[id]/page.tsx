@@ -7,11 +7,12 @@ import { getQuestionsByTagId } from "@/lib/actions/tag.action";
 import React from "react";
 import { QuestionCardProps } from "../../collection/page";
 import { URLProps } from "@/types";
+import Pagination from "@/components/shared/Pagination";
 
 const Page = async ({ params, searchParams }: URLProps) => {
   const result = await getQuestionsByTagId({
     tagId: params.id,
-    page: 1,
+    page: searchParams.page ? +searchParams.page : 1,
     searchQuery: searchParams.q,
   });
   return (
@@ -56,6 +57,12 @@ const Page = async ({ params, searchParams }: URLProps) => {
             linkTitle="Ask a Question"
           />
         )}
+      </div>
+      <div className="mt-10">
+        <Pagination
+          pageNumber={searchParams?.page ? +searchParams.page : 1}
+          isNext={result.isNext}
+        />
       </div>
     </>
   );
