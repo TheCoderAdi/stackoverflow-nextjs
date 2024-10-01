@@ -10,6 +10,7 @@ import { formatAndDivideNumber } from "@/lib/utils";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect } from "react";
+import { toast } from "../hooks/use-toast";
 
 interface Props {
   type: string;
@@ -41,9 +42,18 @@ const Votes = ({
       questionId: JSON.parse(itemId),
       path: pathname,
     });
+
+    return toast({
+      title: `Question ${!hasSaved ? "Saved in" : "Removed from"} collections`,
+      variant: `${!hasSaved ? "default" : "destructive"}`,
+    });
   };
   const handleVote = async (action: string) => {
-    if (!userId) return;
+    if (!userId)
+      return toast({
+        title: "Please login to vote",
+        description: "You need to login to vote",
+      });
 
     if (action === "upvote") {
       if (type === "Question") {
@@ -63,6 +73,10 @@ const Votes = ({
           path: pathname,
         });
       }
+      return toast({
+        title: `Upvote ${!hasUpvoted ? "Successfully" : "Removed"}`,
+        variant: `${!hasUpvoted ? "default" : "destructive"}`,
+      });
     }
     if (action === "downvote") {
       if (type === "Question") {
@@ -82,6 +96,11 @@ const Votes = ({
           path: pathname,
         });
       }
+
+      return toast({
+        title: `Downvote ${!hasDownvoted ? "Successfully" : "Removed"}`,
+        variant: `${!hasDownvoted ? "default" : "destructive"}`,
+      });
     }
   };
 
