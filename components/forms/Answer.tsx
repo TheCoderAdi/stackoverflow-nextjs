@@ -11,6 +11,7 @@ import { useTheme } from "@/context/ThemeProvider";
 import { Button } from "../ui/button";
 import { createAnswer } from "@/lib/actions/answer.action";
 import { usePathname } from "next/navigation";
+import { toast } from "../hooks/use-toast";
 
 interface Props {
   question: string;
@@ -30,6 +31,12 @@ const Answer = ({ question, questionId, author }: Props) => {
   });
 
   const handleCreateAnswer = async (values: z.infer<typeof answerSchema>) => {
+    if (!author)
+      return toast({
+        title: "You need to be logged in to answer",
+        description: "Please login to answer",
+        variant: "destructive",
+      });
     setIsSubmiting(true);
     try {
       await createAnswer({
