@@ -6,12 +6,16 @@ import Pagination from "@/components/shared/Pagination";
 import LocalSearchBar from "@/components/shared/search/LocalSearchBar";
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filters";
-import { getQuestions } from "@/lib/actions/question.action";
+import {
+  getQuestions,
+  getRecommendedQuestions,
+} from "@/lib/actions/question.action";
 import { SearchParamsProps } from "@/types";
 import Link from "next/link";
 import React from "react";
 
 import type { Metadata } from "next";
+import { auth } from "@clerk/nextjs/server";
 
 export const metadata: Metadata = {
   title: "Home | DevFlow",
@@ -23,12 +27,29 @@ export const metadata: Metadata = {
 };
 
 const Home = async ({ searchParams }: SearchParamsProps) => {
-  const result = await getQuestions({
-    searchQuery: searchParams.q,
-    filter: searchParams.filter,
-    page: searchParams.page ? +searchParams.page : 1,
-  });
+  let result;
+  const { userId } = auth();
 
+  if (searchParams?.filter === "recommended") {
+    if (userId) {
+      result = await getRecommendedQuestions({
+        userId,
+        page: searchParams.page ? +searchParams.page : 1,
+        searchQuery: searchParams.q,
+      });
+    } else {
+      result = {
+        questions: [],
+        isNext: false,
+      };
+    }
+  } else {
+    result = await getQuestions({
+      searchQuery: searchParams.q,
+      filter: searchParams.filter,
+      page: searchParams.page ? +searchParams.page : 1,
+    });
+  }
   return (
     <>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
@@ -56,8 +77,8 @@ const Home = async ({ searchParams }: SearchParamsProps) => {
 
       <HomeFilters />
       <div className="mt-10 flex w-full flex-col gap-6">
-        {result.questions.length > 0 ? (
-          result.questions.map((question) => (
+        {result?.questions.length > 0 ? (
+          result?.questions.map((question) => (
             <QuestionCard
               key={question._id}
               _id={question._id}
