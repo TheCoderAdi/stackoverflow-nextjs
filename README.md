@@ -42,10 +42,10 @@ This project aims to replicate the core functionalities of the popular Q&A platf
    NEXT_PUBLIC_TINY_EDITOR_API_KEY=
    NEXT_CLERK_WEBHOOK_SECRET=
    MONGO_URI=
-  ```
+   ```
 5. Start the development server:
    ```bash
-   npm run dev
+    npm run dev
    ```
 
 ## Usage
