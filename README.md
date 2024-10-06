@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# StackOverflow Clone - Next.js
 
-## Getting Started
+This repository is a clone of StackOverflow built using Next.js.
 
-First, run the development server:
+## Description
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This project aims to replicate the core functionalities of the popular Q&A platform, StackOverflow. It allows users to post questions, provide answers, vote on posts, and more.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- User Authentication
+- Ask Questions
+- Provide Answers
+- Vote on Questions and Answers
+- Real-time updates
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Installation
 
-## Learn More
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/TheCoderAdi/stackoverflow-nextjs.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd stackoverflow-nextjs
+   ```
+3. Install the dependencies:
+   ```bash
+   npm install
+   ```
+4. Create a `.env.local` file and add your environment variables:
+   ```bash
+   touch .env.local
+   ```
+   ```bash
+   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+   CLERK_SECRET_KEY=
+   NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+   NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
+   NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+   NEXT_PUBLIC_CLERK_AFTER_SIGN_UP__URL=/
+   NEXT_PUBLIC_TINY_EDITOR_API_KEY=
+   NEXT_CLERK_WEBHOOK_SECRET=
+   MONGO_URI=
+   ```
+5. Start the development server:
+   ```bash
+    npm run dev
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+## Usage
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Open your browser and navigate to [http://localhost:3000](http://localhost:3000).
+2. Register for a new account or log in with your existing credentials.
+3. Start asking questions, providing answers, and voting on posts!
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Contributing
 
-## Deploy on Vercel
+Contributions are welcome! Please follow these steps to contribute:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Fork the repository.
+2. Create a new branch:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+3. Make your changes and commit them:
+   ```bash
+   git commit -m "Add some feature"
+   ```
+4. Push to the branch:
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+5. Create a pull request.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## License
+
+This project is licensed under the MIT License.
+
+## Acknowledgments
+
+- [Next.js](https://nextjs.org/)
+- [Vercel](https://vercel.com/)
+- [StackOverflow](https://stackoverflow.com/)
